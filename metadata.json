@@ -1,0 +1,6 @@
+{
+  "name": "LibCustomizer Studio — Конструктор расширения для семейства Lib",
+  "description": "Интерактивная студия кастомизации и генератор браузерного расширения (Manifest V3 и UserScript) для сайтов семейства Lib: MangaLib, RanobeLib, AnimeLib, SlashLib и HentaiLib.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
