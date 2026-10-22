@@ -1,0 +1,596 @@
+/* === LibCustomizer Pro v5.8 — Customizable Forum Opacity, Transparent Borders & Dynamic Header === */
+:root, html, body, [data-theme], [data-scheme], [data-color-scheme], [data-mode] {
+  --lib-bg-primary: #0B0F17 !important;
+  --lib-bg-secondary: #172033 !important;
+  --lib-bg-card: rgba(23, 32, 51, 0.92) !important;
+  --lib-bg-elevated: rgba(23, 32, 51, 0.97) !important;
+  --lib-bg-nested: rgba(23, 32, 51, 0.76) !important;
+  --lib-text-primary: #F1F5F9 !important;
+  --lib-text-muted: #94A3B8 !important;
+  --lib-accent: #FF7A00 !important;
+  --lib-accent-rgb: 255, 122, 0 !important;
+  --lib-radius: 16px !important;
+  --lib-radius-sm: 12px !important;
+  --lib-container-width: 1440px !important;
+
+  /* Forum dedicated opacity & transparent border custom properties */
+  --forum-opacity: 0.92 !important;
+  --forum-bg: rgba(23, 32, 51, 0.92) !important;
+  --forum-border: transparent !important;
+
+  /* CRITICAL LIB ENGINE SURFACE TOKENS:
+     --foreground repeats --background-elevated-1 at rich uniform density (no double-layer mismatch). */
+  --background-elevated-1: rgba(23, 32, 51, 0.92) !important;
+  --background-elevated-2: rgba(23, 32, 51, 0.95) !important;
+  --background-elevated-3: rgba(23, 32, 51, 0.97) !important;
+  --foreground: var(--background-elevated-1) !important;
+  --foreground-rgb: 23, 32, 51 !important;
+  --btn-light-bg: rgba(23, 32, 51, 0.76) !important;
+  --btn-light-bg-hover: rgba(255, 122, 0, 0.18) !important;
+
+  /* Header & Navbar Tokens */
+  --header-bg: var(--background-elevated-3) !important;
+  --navbar-bg: var(--background-elevated-3) !important;
+  --bg-header: var(--background-elevated-3) !important;
+  --background-header: var(--background-elevated-3) !important;
+  --background-navbar: var(--background-elevated-3) !important;
+  --background-sticky: var(--background-elevated-3) !important;
+
+  --background: #0B0F17 !important;
+  --background-base: #0B0F17 !important;
+  --bg-primary: #0B0F17 !important;
+  --bg-secondary: var(--background-elevated-1) !important;
+  --bg-tertiary: var(--background-elevated-2) !important;
+  --bg-elevated: var(--background-elevated-3) !important;
+  --bg-elevated-1: var(--background-elevated-1) !important;
+  --bg-elevated-2: var(--background-elevated-2) !important;
+  --bg-elevated-3: var(--background-elevated-3) !important;
+  --bg-modal: var(--background-elevated-3) !important;
+  --bg-popover: var(--background-elevated-3) !important;
+  --bg-dropdown: var(--background-elevated-3) !important;
+  --bg-drawer: var(--background-elevated-3) !important;
+  --bg-card: var(--background-elevated-1) !important;
+  --bg-paper: var(--background-elevated-1) !important;
+  --bg-surface: var(--background-elevated-1) !important;
+  --bg-input: var(--btn-light-bg) !important;
+
+  --background-primary: #0B0F17 !important;
+  --background-secondary: var(--background-elevated-1) !important;
+  --background-tertiary: var(--background-elevated-2) !important;
+  --background-elevated: var(--background-elevated-3) !important;
+  --background-paper: var(--background-elevated-1) !important;
+  --background-modal: var(--background-elevated-3) !important;
+  --surface-primary: var(--background-elevated-1) !important;
+  --surface-secondary: var(--background-elevated-2) !important;
+  --surface-elevated: var(--background-elevated-3) !important;
+
+  /* Native Border Radius Variables */
+  --border-radius: var(--lib-radius) !important;
+  --radius: var(--lib-radius) !important;
+  --radius-sm: var(--lib-radius-sm) !important;
+  --radius-md: var(--lib-radius) !important;
+  --radius-lg: calc(var(--lib-radius) + 4px) !important;
+
+  /* Native Accent & Text Variables */
+  --primary-color: #FF7A00 !important;
+  --accent-color: #FF7A00 !important;
+  --color-primary: #FF7A00 !important;
+  --color-accent: #FF7A00 !important;
+  --brand-color: #FF7A00 !important;
+  --orange: #FF7A00 !important;
+  --blue: #FF7A00 !important;
+  --primary-500: #FF7A00 !important;
+  --primary-600: #FF7A00 !important;
+  --border-color: rgba(255, 255, 255, 0.08) !important;
+  --divider-color: rgba(255, 255, 255, 0.06) !important;
+  --text-primary: #F1F5F9 !important;
+  --text-secondary: #94A3B8 !important;
+  --text-muted: #94A3B8 !important;
+}
+
+/* 1. Root & Primary Background Layer */
+html {
+  background-color: #0B0F17 !important;
+  color: #F1F5F9 !important;
+  color-scheme: dark !important;
+}
+
+body, #app, .app, .page, .layout, .site-wrapper, main,
+[class*="layout__content"], [class*="page__wrapper"] {
+  background: #0B0F17 !important;
+  background-color: #0B0F17 !important;
+  color: #F1F5F9 !important;
+}
+
+/* 2. Top Navigation Header Bar (where MangaLIB logo, Каталог, Поиск, Форум are located) */
+[data-lc-header="1"],
+header,
+.header,
+.navbar,
+.layout__header,
+[role="banner"],
+[class*="header__container"],
+[class*="layout__header"],
+[class*="app-header"],
+[class*="reader-header"],
+nav[class*="header"],
+div[class*="header"]:not([class*="section"]):not([class*="card"]):not([class*="topic"]),
+div[class*="navbar"],
+div[class*="top-bar"],
+div[class*="topbar"],
+div:has(> div > a[href*="mangalib"]):not(:has([data-home-block])):not(:has(.section)):not(:has(main)),
+div:has(> a[href*="mangalib"]):not(:has([data-home-block])):not(:has(.section)):not(:has(main)) {
+  background: var(--background-elevated-3) !important;
+  background-color: var(--background-elevated-3) !important;
+  color: #F1F5F9 !important;
+  backdrop-filter: blur(14px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(150%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+  position: sticky !important; top: 0 !important; z-index: 1000 !important;
+  
+}
+
+[data-lc-header-inner="1"],
+header > div,
+header > nav,
+.header > div,
+.navbar > div,
+[role="banner"] > div,
+[data-lc-header="1"] > div,
+[data-lc-header="1"] > div > div {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* 3. Main Sections & [data-home-block] Containers — Single Uniform Layer (No Double Opacity or Double Borders!) */
+.section:not([data-home-block="slider"]),
+[data-home-block="popular-updates"], [data-home-block="hot-newest"], [data-home-block="latest-views"],
+[data-home-block="continue"], [data-home-block="top-views"], [data-home-block="forum"],
+[data-home-block="reviews"], [data-home-block="collections"], [data-home-block="latest-updates"],
+[data-home-block="top-users"], [data-home-block="newest"], [data-home-block="telegram"],
+[class*="faq-content"], [class*="rules-content"], [class*="comments-section"] {
+  background-color: var(--background-elevated-1) !important;
+  color: #F1F5F9 !important;
+  border-radius: var(--lib-radius) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* 3.1 Forum Page & Discussion Surfaces — Customizable Opacity & Transparent Border (as requested in DevTools) */
+[class*="forum"],
+[class*="topics"],
+[class*="discussion"],
+main:has([class*="forum"]) [class*="sidebar"],
+main:has([class*="forum"]) aside,
+[class*="forum"] [class*="sidebar"],
+[class*="forum-sidebar"],
+[class*="forum-categories"],
+[class*="forum-content"],
+[class*="forum-list"],
+[class*="topics-list"],
+[class*="pinned-topics"],
+[class*="topic-item"],
+[class*="thread-item"],
+[class*="post-item"] {
+  background-color: var(--forum-bg) !important;
+  color: #F1F5F9 !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid transparent !important;
+  border-radius: var(--lib-radius) !important;
+  box-shadow: none !important;
+}
+
+/* Forum search input & filter buttons */
+[class*="forum"] input,
+[class*="forum"] [class*="search"],
+[class*="forum"] [class*="filter"],
+[class*="forum"] [class*="select"] {
+  background-color: var(--btn-light-bg) !important;
+  color: #F1F5F9 !important;
+  border: 1px solid transparent !important;
+  border-radius: var(--lib-radius-sm) !important;
+}
+
+/* Topic rows inside the forum list — clean readable cards with transparent border */
+[class*="topic-item"],
+[class*="forum-item"],
+[class*="thread-card"],
+[class*="forum"] [class*="card"],
+[class*="forum"] article,
+[class*="pinned-topics"] > * {
+  background-color: var(--btn-light-bg) !important;
+  border: 1px solid transparent !important;
+  border-radius: var(--lib-radius-sm) !important;
+  margin-bottom: 8px !important;
+  padding: 10px 14px !important;
+  transition: background-color 0.16s ease, border-color 0.16s ease !important;
+}
+
+[class*="topic-item"]:hover,
+[class*="forum-item"]:hover,
+[class*="thread-card"]:hover,
+[class*="forum"] [class*="card"]:hover,
+[class*="forum"] article:hover,
+[class*="pinned-topics"] > *:hover {
+  background-color: var(--btn-light-bg-hover) !important;
+  border-color: rgba(255, 122, 0, 0.35) !important;
+}
+
+/* Category menu items in forum sidebar */
+[class*="forum"] [class*="category"],
+[class*="forum"] [class*="nav-item"],
+[class*="forum"] aside a,
+[class*="forum"] [class*="sidebar"] a {
+  border-radius: var(--lib-radius-sm) !important;
+  color: #F1F5F9 !important;
+  padding: 6px 10px !important;
+  transition: background-color 0.15s ease, color 0.15s ease !important;
+}
+
+[class*="forum"] [class*="category"]:hover,
+[class*="forum"] [class*="nav-item"]:hover,
+[class*="forum"] aside a:hover,
+[class*="forum"] [class*="sidebar"] a:hover {
+  background-color: var(--btn-light-bg-hover) !important;
+  color: #ffffff !important;
+}
+
+[class*="forum"] [class*="active"],
+[class*="forum"] .is-active,
+[class*="forum"] [aria-current="page"] {
+  background-color: var(--btn-light-bg) !important;
+  border-left: 3px solid #FF7A00 !important;
+  font-weight: 600 !important;
+}
+
+/* Prevent nested homepage block wrappers from adding extra layers — NEVER affects forum */
+.section[data-home-block] .section,
+.section[data-home-block] .paper,
+.section[data-home-block] .card-box,
+.section[data-home-block] .box,
+[data-home-block] .section,
+[data-home-block] .paper,
+[data-home-block] .card-box,
+[data-home-block] .box,
+.section[data-home-block] > div:not(.wb):not([class*="wb"]):not([class*="card"]):not([class*="item"]):not([class*="topic"]):not([class*="forum"]):not([class*="sidebar"]),
+[data-home-block] > div:not(.wb):not([class*="wb"]):not([class*="card"]):not([class*="item"]):not([class*="topic"]):not([class*="forum"]):not([class*="sidebar"]) {
+  background: transparent !important;
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* 4. Interactive Surface Harmonization for .wb.c1, Continue Reading, Reviews, Collections, Translators, Related/Similar & Calendar Cells */
+.wb.c1, .wb_c1, .wb, [class*="wb"][class*="c1"],
+[data-home-block="continue"] a[class],
+[data-home-block="continue"] > div > div > div,
+[data-home-block="reviews"] a[class],
+[data-home-block="reviews"] article,
+[data-home-block="collections"] a[class],
+[data-home-block="top-users"] a[class],
+[data-home-block="latest-views"] > div > div > div,
+[class*="related"] a[class], [class*="similar"] a[class], [class*="translator"] a[class],
+[class*="calendar"] [class*="day"], [class*="calendar"] [class*="cell"] {
+  background-color: var(--btn-light-bg) !important;
+  color: #F1F5F9 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: var(--lib-radius-sm) !important;
+  transition: background-color 0.16s ease, border-color 0.16s ease !important;
+}
+
+.wb.c1:hover, .wb_c1:hover, .wb:hover,
+[data-home-block="continue"] a[class]:hover,
+[data-home-block="reviews"] a[class]:hover,
+[data-home-block="collections"] a[class]:hover,
+[data-home-block="top-users"] a[class]:hover,
+[data-home-block="latest-views"] > div > div > div:hover,
+[class*="related"] a[class]:hover, [class*="similar"] a[class]:hover, [class*="translator"] a[class]:hover {
+  background-color: var(--btn-light-bg-hover) !important;
+  border-color: rgba(255, 122, 0, 0.45) !important;
+  color: #F1F5F9 !important;
+}
+
+/* Ensure inner headers/toolbars (Chapter sort/download bar, Calendar day headers) never get pitch-black or white strips */
+.section > [class*="header"], .section > [class*="body"], .section > [class*="footer"],
+.paper > [class*="header"], .paper > [class*="body"], .paper > [class*="footer"],
+[class*="section__header"], [class*="section__body"], [class*="section-header"], [class*="section-body"],
+[class*="tabs-wrapper"], [class*="subnav"], [class*="filter-bar"], [class*="chapters-header"] {
+  background: transparent !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* 5. Hide Disabled Home Page Blocks ([data-home-block]) & Empty Parent Wrappers — Pure CSS, Zero Trace */
+[data-home-block="slider"],
+.section[data-home-block="slider"],
+a[data-home-block="slider"],
+.section:has([data-home-block="slider"]):not(:has([data-home-block]:not([data-home-block="slider"]))),
+.paper:has([data-home-block="slider"]):not(:has([data-home-block]:not([data-home-block="slider"]))),
+div:has(> [data-home-block="slider"]):not(:has([data-home-block]:not([data-home-block="slider"]))) {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+[data-home-block="telegram"],
+.section[data-home-block="telegram"],
+a[data-home-block="telegram"],
+.section:has([data-home-block="telegram"]):not(:has([data-home-block]:not([data-home-block="telegram"]))),
+.paper:has([data-home-block="telegram"]):not(:has([data-home-block]:not([data-home-block="telegram"]))),
+div:has(> [data-home-block="telegram"]):not(:has([data-home-block]:not([data-home-block="telegram"]))) {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+.section:has([data-home-block]):not(:has([data-home-block="popular-updates"], [data-home-block="hot-newest"], [data-home-block="latest-views"], [data-home-block="top-views"], [data-home-block="latest-updates"], [data-home-block="forum"], [data-home-block="reviews"], [data-home-block="collections"], [data-home-block="top-users"], [data-home-block="newest"])),
+.paper:has([data-home-block]):not(:has([data-home-block="popular-updates"], [data-home-block="hot-newest"], [data-home-block="latest-views"], [data-home-block="top-views"], [data-home-block="latest-updates"], [data-home-block="forum"], [data-home-block="reviews"], [data-home-block="collections"], [data-home-block="top-users"], [data-home-block="newest"])) {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+}
+
+.section:empty, .paper:empty {
+  display: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* 6. Popovers, Notifications Dropdown, Modals & Reader Settings Drawer */
+.dropdown-menu, .popover, .modal, .dialog, .drawer, .offcanvas,
+[role="dialog"], [role="menu"], [role="listbox"], [data-radix-popper-content-wrapper] > *,
+.tippy-box, .v-popper__inner, [class*="notifications"], [class*="notification-list"] {
+  background-color: var(--background-elevated-3) !important;
+  color: #F1F5F9 !important;
+  backdrop-filter: blur(16px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  border-radius: var(--lib-radius) !important;
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.65) !important;
+}
+
+/* 7. Clean Comment Threads & Replies */
+.comment, .comment-item, [class*="comment__item"], [class*="comment-body"], [class*="comment__body"],
+[class*="comment__content"], .comment__replies, .comment-reply,
+[class*="comment-children"], [class*="comment-reply"], [class*="comments-item"] {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #F1F5F9 !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: var(--lib-radius-sm) !important;
+}
+
+.comment__replies, [class*="comment-children"], [class*="comment-replies"] {
+  border-left: 2px solid rgba(255, 122, 0, 0.32) !important;
+  padding-left: 14px !important;
+  margin-left: 8px !important;
+  border-radius: 0 !important;
+}
+
+/* 8. Inputs, Selects & Search Bars */
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]),
+textarea, select, .input, .form-control, .select,
+[class*="input-wrapper"], [class*="search-input"], [class*="comment-input"],
+[class*="filter-input"], [class*="textarea"], [class*="select__control"] {
+  background-color: var(--btn-light-bg) !important;
+  color: #F1F5F9 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: var(--lib-radius-sm) !important;
+  box-shadow: none !important;
+}
+
+[class*="input-wrapper"] input, [class*="search-input"] input, [class*="comment-input"] textarea {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* 9. Buttons & Accent Harmonizer */
+button, .btn, [role="button"], .tag, .chip {
+  border-radius: var(--lib-radius-sm) !important;
+}
+
+button.btn-primary, .btn-primary, .button--primary, [class*="btn_variant_primary"],
+[class*="btn-orange"], [class*="btn-blue"], [class*="btn-success"], [class*="btn-green"],
+button[type="submit"] {
+  background-color: var(--lib-accent) !important;
+  border-color: var(--lib-accent) !important;
+  color: #ffffff !important;
+  border-radius: var(--lib-radius-sm) !important;
+}
+
+.tabs__item--active, .tab--active, [class*="tabs"] .is-active, [role="tab"][aria-selected="true"] {
+  background-color: rgba(255, 122, 0, 0.14) !important;
+  color: #F1F5F9 !important;
+  border-bottom: 2px solid var(--lib-accent) !important;
+  border-radius: var(--lib-radius-sm) var(--lib-radius-sm) 0 0 !important;
+  box-shadow: none !important;
+}
+
+[class*="tabs__line"], [class*="tab-indicator"], [class*="progress-bar"], [class*="progress__fill"],
+input[type="range"]::-webkit-slider-thumb, [class*="slider__fill"], [class*="switch--checked"] {
+  background-color: var(--lib-accent) !important;
+  border-color: var(--lib-accent) !important;
+}
+
+input[type="range"], input[type="checkbox"], input[type="radio"] {
+  accent-color: var(--lib-accent) !important;
+}
+
+.header__logo, [class*="logo"], .navbar-brand, header a[href="/"] {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* 10. Clean Catalog Media Cards */
+.container, .layout__container, .page__inner {
+  max-width: var(--lib-container-width) !important;
+}
+
+.media-card, .card-item {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: var(--lib-radius) !important;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.media-card__title, .card-item__title, [class*="card-title"] {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  line-height: 1.35 !important;
+  margin-top: 6px !important;
+  padding: 0 2px !important;
+  color: #F1F5F9 !important;
+  font-weight: 600 !important;
+}
+
+.media-card__subtitle, .card-item__subtitle, [class*="card-meta"] {
+  display: block !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  line-height: 1.3 !important;
+  margin-top: 2px !important;
+  padding: 0 2px !important;
+  color: #94A3B8 !important;
+  font-size: 12px !important;
+}
+
+.media-card__cover, .cover, .card-item__cover, .media-card__cover img, .cover img {
+  aspect-ratio: 2/3 !important;
+  border-radius: var(--lib-radius) !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+/* 11. Manga & Ranobe Reader Overrides */
+.reader-view, .reader-pages, [class*="reader-canvas"], [class*="reader-pages"] {
+  max-width: 960px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0px !important;
+}
+
+.reader-view img, .reader-pages img, [class*="reader-page"] img {
+  filter: brightness(100%) contrast(102%) sepia(0%) !important;
+  
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+}
+
+.reader-text, .ranobe-reader__content, .reader-container {
+  font-family: 'Lora', Georgia, serif !important;
+  font-size: 18px !important;
+  line-height: 1.75 !important;
+  text-align: justify !important;
+  color: #F1F5F9 !important;
+  max-width: 960px !important;
+  margin: 0 auto !important;
+}
+
+/* 12. Real AdBlocker Engine (Targets exact Lib homepage slider & chapter ads) */
+div.section[data-home-block="slider"],
+.section[data-home-block="slider"],
+[data-home-block="slider"],
+div.aaf_s,
+.aaf_s,
+.aaf_c9,
+[class^="aaf_"],
+[class*=" aaf_"],
+[id^="yandex_rtb"],
+[id*="yandex_rtb"],
+[class*="yandex_rtb"],
+[class*="ya-partner"],
+ins.adsbygoogle,
+iframe[src*="yandex"],
+iframe[src*="ads"],
+iframe[src*="doubleclick"],
+iframe[src*="adriver"],
+iframe[src*="bet"],
+.ad-banner,
+.ads-wrapper,
+.adv-block,
+.promo-banner,
+.top-banner,
+.header-banner,
+.footer-banner,
+[class*="ad-container"],
+[class*="ads-container"],
+[class*="banner-block"],
+[class*="promo-strip"],
+[data-ad],
+[data-ad-block],
+[data-banner] {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  overflow: hidden !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #0B0F17; }
+::-webkit-scrollbar-thumb { background: rgba(255, 122, 0, 0.55); border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background: #FF7A00; }
+
+/* === User Custom CSS === */
+/* Ваши собственные CSS-правила для всех сайтов семейства Lib */

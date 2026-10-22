@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>LibCustomizer Pro v5.8</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 380px;
+      background: #0B0F17;
+      color: #F1F5F9;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      padding: 14px;
+      font-size: 12px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .brand { font-weight: 700; font-size: 14px; color: #fff; }
+    .version { font-size: 11px; color: #10B981; font-family: monospace; background: rgba(16,185,129,0.12); padding: 2px 8px; border-radius: 8px; }
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      background: #111827;
+      padding: 4px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+    .tab-btn {
+      padding: 7px;
+      border: none;
+      background: transparent;
+      color: #94A3B8;
+      font-weight: 600;
+      font-size: 12px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+    .tab-btn.active {
+      background: #1E293B;
+      color: #fff;
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .presets {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+    .preset-btn {
+      padding: 6px;
+      background: #172033;
+      color: #CBD5E1;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      font-size: 11px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .preset-btn:hover { border-color: #FF7A00; color: #fff; }
+    .control {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .control label { color: #CBD5E1; font-size: 12px; }
+    input[type="color"] {
+      width: 36px; height: 24px; border: none; background: transparent; cursor: pointer;
+    }
+    input[type="range"] {
+      width: 115px; accent-color: #FF7A00; cursor: pointer;
+    }
+    input[type="url"] {
+      width: 155px; background: #172033; border: 1px solid #334155; color: #fff; padding: 4px 8px; border-radius: 7px; font-size: 11px;
+    }
+    .blocks-list {
+      max-height: 260px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding-right: 4px;
+    }
+    .block-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 10px;
+      background: #172033;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+    }
+    .block-item label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      flex: 1;
+      font-size: 11px;
+      color: #E2E8F0;
+    }
+    .actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .btn {
+      flex: 1;
+      padding: 9px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 12px;
+      border: 1px solid transparent;
+    }
+    .btn-apply {
+      background: #FF7A00;
+      color: #fff;
+    }
+    .btn-apply.dirty {
+      box-shadow: 0 0 0 2px rgba(255,122,0,0.45);
+    }
+    .btn-reset {
+      background: #1E293B;
+      color: #CBD5E1;
+      border-color: #334155;
+      flex: 0.45;
+    }
+    .status {
+      margin-top: 8px;
+      font-size: 11px;
+      color: #10B981;
+      text-align: center;
+      min-height: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="brand">LibCustomizer Pro</span>
+    <span class="version">v5.8 Stable</span>
+  </div>
+
+  <div class="tabs">
+    <button type="button" class="tab-btn active" data-tab="palette">Палитра и тема</button>
+    <button type="button" class="tab-btn" data-tab="blocks">Скрытие блоков (12)</button>
+  </div>
+
+  <div class="tab-panel active" id="tab-palette">
+    <div class="presets">
+      <button type="button" class="preset-btn" data-preset="dark_slate">Nordic Slate</button>
+      <button type="button" class="preset-btn" data-preset="oled">OLED Black</button>
+      <button type="button" class="preset-btn" data-preset="catppuccin">Catppuccin</button>
+      <button type="button" class="preset-btn" data-preset="tokyo_night">Tokyo Night</button>
+      <button type="button" class="preset-btn" data-preset="sepia">Warm Sepia</button>
+    </div>
+
+    <div class="control">
+      <label for="adblockEnabled">Блокировщик рекламы (Слайдер + Главы)</label>
+      <input type="checkbox" id="adblockEnabled" checked />
+    </div>
+    <div class="control">
+      <label for="bgPrimary">Основной фон сайта</label>
+      <input type="color" id="bgPrimary" value="#0B0F17" />
+    </div>
+    <div class="control">
+      <label for="bgCard">Фон карточек и шапки (--foreground)</label>
+      <input type="color" id="bgCard" value="#172033" />
+    </div>
+    <div class="control">
+      <label for="accentColor">Единый акцентный цвет</label>
+      <input type="color" id="accentColor" value="#FF7A00" />
+    </div>
+    <div class="control">
+      <label for="textPrimary">Основной цвет текста</label>
+      <input type="color" id="textPrimary" value="#F1F5F9" />
+    </div>
+    <div class="control">
+      <label for="cardBorderRadius">Скругление углов (<span id="radiusVal">16</span>px)</label>
+      <input type="range" id="cardBorderRadius" min="8" max="28" value="16" />
+    </div>
+    <div class="control">
+      <label for="cardOpacity">Плотность карточек (<span id="opacityVal">92</span>%)</label>
+      <input type="range" id="cardOpacity" min="40" max="100" value="92" />
+    </div>
+    <div class="control">
+      <label for="forumOpacity">Плотность подложки форума (<span id="forumOpacityVal">92</span>%)</label>
+      <input type="range" id="forumOpacity" min="0" max="100" value="92" />
+    </div>
+    <div class="control">
+      <label for="customBgUrl">URL фоновых обоев</label>
+      <input type="url" id="customBgUrl" placeholder="https://..." value="" />
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-blocks">
+    <div style="font-size:11px;color:#94A3B8;margin-bottom:8px;">
+      Отключайте ненужные секции <code>data-home-block</code> на главной странице (без миганий и без пустых следов), затем нажмите «Применить сейчас»:
+    </div>
+    <div class="blocks-list" id="blocksList"></div>
+  </div>
+
+  <div class="actions">
+    <button type="button" class="btn btn-apply" id="applyBtn">Применить сейчас</button>
+    <button type="button" class="btn btn-reset" id="resetBtn">Сброс</button>
+  </div>
+
+  <div class="status" id="statusMsg">Изменения применяются по нажатию кнопки</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
