@@ -6,7 +6,7 @@
   --lib-bg-elevated: rgba(23, 32, 51, 0.97) !important;
   --lib-bg-nested: rgba(23, 32, 51, 0.76) !important;
   --lib-text-primary: #F1F5F9 !important;
-  --lib-text-muted: #94A3B8 !important;
+  --lib-text-muted: color-mix(in srgb, var(--text-primary) 72%, #000000) !important;
   --lib-accent: #FF7A00 !important;
   --lib-accent-rgb: 255, 122, 0 !important;
   --lib-radius: 16px !important;
@@ -28,13 +28,16 @@
   --btn-light-bg: rgba(23, 32, 51, 0.76) !important;
   --btn-light-bg-hover: rgba(255, 122, 0, 0.18) !important;
 
-  /* Header & Navbar Tokens */
+  /* Header, Navbar & Footer Tokens */
   --header-bg: var(--background-elevated-3) !important;
   --navbar-bg: var(--background-elevated-3) !important;
   --bg-header: var(--background-elevated-3) !important;
   --background-header: var(--background-elevated-3) !important;
   --background-navbar: var(--background-elevated-3) !important;
   --background-sticky: var(--background-elevated-3) !important;
+  --footer-bg: var(--background-elevated-3) !important;
+  --bg-footer: var(--background-elevated-3) !important;
+  --background-footer: var(--background-elevated-3) !important;
 
   --background: #0B0F17 !important;
   --background-base: #0B0F17 !important;
@@ -84,8 +87,8 @@
   --border-color: rgba(255, 255, 255, 0.08) !important;
   --divider-color: rgba(255, 255, 255, 0.06) !important;
   --text-primary: #F1F5F9 !important;
-  --text-secondary: #94A3B8 !important;
-  --text-muted: #94A3B8 !important;
+  --text-secondary: color-mix(in srgb, var(--text-primary) 72%, #000000) !important;
+  --text-muted: var(--text-secondary) !important;
 }
 
 /* 1. Root & Primary Background Layer */
@@ -146,11 +149,13 @@ header > nav,
 
 /* 3. Main Sections & [data-home-block] Containers — Single Uniform Layer (No Double Opacity or Double Borders!) */
 .section:not([data-home-block="slider"]),
+[data-home-block]:not([data-home-block="slider"]),
 [data-home-block="popular-updates"], [data-home-block="hot-newest"], [data-home-block="latest-views"],
 [data-home-block="continue"], [data-home-block="top-views"], [data-home-block="forum"],
 [data-home-block="reviews"], [data-home-block="collections"], [data-home-block="latest-updates"],
 [data-home-block="top-users"], [data-home-block="newest"], [data-home-block="telegram"],
 [class*="faq-content"], [class*="rules-content"], [class*="comments-section"] {
+  background: var(--background-elevated-1) !important;
   background-color: var(--background-elevated-1) !important;
   color: #F1F5F9 !important;
   border-radius: var(--lib-radius) !important;
@@ -390,16 +395,30 @@ div:has(> [data-home-block="telegram"]):not(:has([data-home-block]:not([data-hom
   box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.65) !important;
 }
 
-/* 7. Clean Comment Threads & Replies */
+/* 7. Clean Comment Threads & Replies (Zero Nested Opacity Stacking!) */
+[data-lc-comment-root="1"],
+[class*="comments-section"],
+[class*="comments-wrap"] {
+  background-color: var(--background-elevated-1) !important;
+  color: var(--text-primary) !important;
+  border-radius: var(--lib-radius) !important;
+}
+
 .comment, .comment-item, [class*="comment__item"], [class*="comment-body"], [class*="comment__body"],
 [class*="comment__content"], .comment__replies, .comment-reply,
-[class*="comment-children"], [class*="comment-reply"], [class*="comments-item"] {
+[class*="comment-children"], [class*="comment-reply"], [class*="comments-item"],
+[class*="comment"] [class*="comment"],
+[class*="comments"] [class*="comment"],
+[data-lc-comment-inner="1"] {
   background: transparent !important;
   background-color: transparent !important;
-  color: #F1F5F9 !important;
-  border: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: var(--text-primary) !important;
+  border-top: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
   box-shadow: none !important;
-  border-radius: var(--lib-radius-sm) !important;
 }
 
 .comment__replies, [class*="comment-children"], [class*="comment-replies"] {
@@ -407,6 +426,63 @@ div:has(> [data-home-block="telegram"]):not(:has([data-home-block]:not([data-hom
   padding-left: 14px !important;
   margin-left: 8px !important;
   border-radius: 0 !important;
+}
+
+/* 7.5 Bottom Footer (.x6_e4 & footer) — Unified Full-Width Theme Surface & Transparent Inner Rows */
+.x6_e4,
+[class*="x6_e4"],
+footer,
+.footer,
+[role="contentinfo"],
+[data-lc-footer="1"] {
+  background: var(--background-elevated-3) !important;
+  background-color: var(--background-elevated-3) !important;
+  color: var(--text-primary) !important;
+  backdrop-filter: blur(14px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(150%) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+[data-lc-footer-sub="1"] {
+  border-top: none !important;
+}
+
+.x6_e4 *:not(button):not(input),
+[class*="x6_e4"] *:not(button):not(input),
+footer *:not(button):not(input),
+.footer *:not(button):not(input),
+[data-lc-footer-sub="1"] *:not(button):not(input) {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.x6_e4 a,
+[class*="x6_e4"] a,
+footer a,
+.footer a,
+[data-lc-footer="1"] a {
+  color: var(--text-primary) !important;
+  text-decoration-color: rgba(255, 255, 255, 0.3) !important;
+  transition: color 0.15s ease !important;
+}
+
+.x6_e4 a:hover,
+[class*="x6_e4"] a:hover,
+footer a:hover,
+.footer a:hover,
+[data-lc-footer="1"] a:hover {
+  color: var(--lib-accent) !important;
 }
 
 /* 8. Inputs, Selects & Search Bars */
@@ -500,7 +576,7 @@ input[type="range"], input[type="checkbox"], input[type="radio"] {
   line-height: 1.3 !important;
   margin-top: 2px !important;
   padding: 0 2px !important;
-  color: #94A3B8 !important;
+  color: var(--text-secondary) !important;
   font-size: 12px !important;
 }
 

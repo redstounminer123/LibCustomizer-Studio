@@ -24,16 +24,16 @@ export const TARGET_MATCH_PATTERNS = [
 export function generateManifestJson(): string {
   const manifest = {
     manifest_version: 3,
-    name: 'LibCustomizer Pro v5.8 — Настраиваемая прозрачность форума и прозрачные рамки',
+    name: 'LibCustomizer Pro v5.9 — Полная кастомизация шапки, форума и подвала .x6_e4',
     short_name: 'LibCustomizer',
-    version: '5.8.0',
+    version: '5.9.0',
     description:
-      'Персонализация MangaLib, RanobeLib, AnimeLib: настраиваемая прозрачность подложки форума, прозрачные рамки border, адаптивная шапка, обои и AdBlock.',
+      'Персонализация MangaLib, RanobeLib, AnimeLib: единая подложка подвала (.x6_e4), настраиваемый форум, прозрачные рамки, адаптивная шапка и AdBlock.',
     permissions: ['storage', 'activeTab', 'scripting'],
     host_permissions: TARGET_MATCH_PATTERNS,
     action: {
       default_popup: 'popup.html',
-      default_title: 'LibCustomizer Pro v5.8 — Настройки и Блоки главной',
+      default_title: 'LibCustomizer Pro v5.9 — Настройки и Блоки главной',
     },
     background: {
       service_worker: 'background.js',
@@ -168,7 +168,7 @@ div:has(> [data-home-block="${block.id}"]):not(:has([data-home-block]:not([data-
   --lib-bg-elevated: rgba(${cardRgb}, ${elevatedAlpha}) !important;
   --lib-bg-nested: rgba(${cardRgb}, ${nestedItemAlpha}) !important;
   --lib-text-primary: ${cfg.textPrimary} !important;
-  --lib-text-muted: ${cfg.textMuted} !important;
+  --lib-text-muted: color-mix(in srgb, var(--text-primary) 72%, #000000) !important;
   --lib-accent: ${cfg.accentColor} !important;
   --lib-accent-rgb: ${accentRgb} !important;
   --lib-radius: ${radiusPx}px !important;
@@ -190,13 +190,16 @@ div:has(> [data-home-block="${block.id}"]):not(:has([data-home-block]:not([data-
   --btn-light-bg: rgba(${cardRgb}, ${nestedItemAlpha}) !important;
   --btn-light-bg-hover: rgba(${accentRgb}, 0.18) !important;
 
-  /* Header & Navbar Tokens */
+  /* Header, Navbar & Footer Tokens */
   --header-bg: var(--background-elevated-3) !important;
   --navbar-bg: var(--background-elevated-3) !important;
   --bg-header: var(--background-elevated-3) !important;
   --background-header: var(--background-elevated-3) !important;
   --background-navbar: var(--background-elevated-3) !important;
   --background-sticky: var(--background-elevated-3) !important;
+  --footer-bg: var(--background-elevated-3) !important;
+  --bg-footer: var(--background-elevated-3) !important;
+  --background-footer: var(--background-elevated-3) !important;
 
   --background: ${hasWallpaper ? 'transparent' : cfg.bgPrimary} !important;
   --background-base: ${hasWallpaper ? 'transparent' : cfg.bgPrimary} !important;
@@ -246,8 +249,8 @@ div:has(> [data-home-block="${block.id}"]):not(:has([data-home-block]:not([data-
   --border-color: rgba(255, 255, 255, 0.08) !important;
   --divider-color: rgba(255, 255, 255, 0.06) !important;
   --text-primary: ${cfg.textPrimary} !important;
-  --text-secondary: ${cfg.textMuted} !important;
-  --text-muted: ${cfg.textMuted} !important;
+  --text-secondary: color-mix(in srgb, var(--text-primary) 72%, #000000) !important;
+  --text-muted: var(--text-secondary) !important;
 }
 
 /* 1. Root & Primary Background Layer */
@@ -330,11 +333,13 @@ header > nav,
 
 /* 3. Main Sections & [data-home-block] Containers — Single Uniform Layer (No Double Opacity or Double Borders!) */
 .section:not([data-home-block="slider"]),
+[data-home-block]:not([data-home-block="slider"]),
 [data-home-block="popular-updates"], [data-home-block="hot-newest"], [data-home-block="latest-views"],
 [data-home-block="continue"], [data-home-block="top-views"], [data-home-block="forum"],
 [data-home-block="reviews"], [data-home-block="collections"], [data-home-block="latest-updates"],
 [data-home-block="top-users"], [data-home-block="newest"], [data-home-block="telegram"],
 [class*="faq-content"], [class*="rules-content"], [class*="comments-section"] {
+  background: var(--background-elevated-1) !important;
   background-color: var(--background-elevated-1) !important;
   color: ${cfg.textPrimary} !important;
   border-radius: var(--lib-radius) !important;
@@ -511,16 +516,30 @@ ${homeBlockRules}
   box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.65) !important;
 }
 
-/* 7. Clean Comment Threads & Replies */
+/* 7. Clean Comment Threads & Replies (Zero Nested Opacity Stacking!) */
+[data-lc-comment-root="1"],
+[class*="comments-section"],
+[class*="comments-wrap"] {
+  background-color: var(--background-elevated-1) !important;
+  color: var(--text-primary) !important;
+  border-radius: var(--lib-radius) !important;
+}
+
 .comment, .comment-item, [class*="comment__item"], [class*="comment-body"], [class*="comment__body"],
 [class*="comment__content"], .comment__replies, .comment-reply,
-[class*="comment-children"], [class*="comment-reply"], [class*="comments-item"] {
+[class*="comment-children"], [class*="comment-reply"], [class*="comments-item"],
+[class*="comment"] [class*="comment"],
+[class*="comments"] [class*="comment"],
+[data-lc-comment-inner="1"] {
   background: transparent !important;
   background-color: transparent !important;
-  color: ${cfg.textPrimary} !important;
-  border: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: var(--text-primary) !important;
+  border-top: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
   box-shadow: none !important;
-  border-radius: var(--lib-radius-sm) !important;
 }
 
 .comment__replies, [class*="comment-children"], [class*="comment-replies"] {
@@ -528,6 +547,62 @@ ${homeBlockRules}
   padding-left: 14px !important;
   margin-left: 8px !important;
   border-radius: 0 !important;
+}
+
+/* 7.5 Bottom Footer (.x6_e4 & footer) — Unified Full-Width Theme Surface & Transparent Inner Rows */
+.x6_e4,
+[class*="x6_e4"],
+footer,
+.footer,
+[role="contentinfo"],
+[data-lc-footer="1"] {
+  background: var(--background-elevated-3) !important;
+  background-color: var(--background-elevated-3) !important;
+  color: var(--text-primary) !important;
+  ${cfg.glassmorphism ? `backdrop-filter: blur(${cfg.glassBlurPx}px) saturate(150%) !important;\n  -webkit-backdrop-filter: blur(${cfg.glassBlurPx}px) saturate(150%) !important;` : ''}
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+[data-lc-footer-sub="1"] {
+  border-top: none !important;
+}
+
+.x6_e4 *:not(button):not(input),
+[class*="x6_e4"] *:not(button):not(input),
+footer *:not(button):not(input),
+.footer *:not(button):not(input),
+[data-lc-footer-sub="1"] *:not(button):not(input) {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.x6_e4 a,
+[class*="x6_e4"] a,
+footer a,
+.footer a,
+[data-lc-footer="1"] a {
+  color: var(--text-primary) !important;
+  text-decoration-color: rgba(255, 255, 255, 0.3) !important;
+  transition: color 0.15s ease !important;
+}
+
+.x6_e4 a:hover,
+[class*="x6_e4"] a:hover,
+footer a:hover,
+.footer a:hover,
+[data-lc-footer="1"] a:hover {
+  color: var(--lib-accent) !important;
 }
 
 /* 8. Inputs, Selects & Search Bars */
@@ -621,7 +696,7 @@ input[type="range"], input[type="checkbox"], input[type="radio"] {
   line-height: 1.3 !important;
   margin-top: 2px !important;
   padding: 0 2px !important;
-  color: ${cfg.textMuted} !important;
+  color: var(--text-secondary) !important;
   font-size: 12px !important;
 }
 
@@ -806,7 +881,7 @@ export function generateContentScript(defaultConfig: ExtensionConfig): string {
   --lib-bg-elevated: rgba(\${cardRgb}, \${elevatedAlpha}) !important;
   --lib-bg-nested: rgba(\${cardRgb}, \${nestedItemAlpha}) !important;
   --lib-text-primary: \${cfg.textPrimary} !important;
-  --lib-text-muted: \${cfg.textMuted} !important;
+  --lib-text-muted: color-mix(in srgb, var(--text-primary) 72%, #000000) !important;
   --lib-accent: \${cfg.accentColor} !important;
   --lib-accent-rgb: \${accentRgb} !important;
   --lib-radius: \${radiusPx}px !important;
@@ -865,7 +940,8 @@ export function generateContentScript(defaultConfig: ExtensionConfig): string {
   --border-color: rgba(255, 255, 255, 0.08) !important;
   --divider-color: rgba(255, 255, 255, 0.06) !important;
   --text-primary: \${cfg.textPrimary} !important;
-  --text-secondary: \${cfg.textMuted} !important;
+  --text-secondary: color-mix(in srgb, var(--text-primary) 72%, #000000) !important;
+  --text-muted: var(--text-secondary) !important;
 }
 
 html {
@@ -942,11 +1018,13 @@ header > nav,
 
 /* Main Sections & [data-home-block] Containers — Single Uniform Layer (No Double Opacity or Double Borders!) */
 .section:not([data-home-block="slider"]),
+[data-home-block]:not([data-home-block="slider"]),
 [data-home-block="popular-updates"], [data-home-block="hot-newest"], [data-home-block="latest-views"],
 [data-home-block="continue"], [data-home-block="top-views"], [data-home-block="forum"],
 [data-home-block="reviews"], [data-home-block="collections"], [data-home-block="latest-updates"],
 [data-home-block="top-users"], [data-home-block="newest"], [data-home-block="telegram"],
 [class*="faq-content"], [class*="rules-content"], [class*="comments-section"] {
+  background: var(--background-elevated-1) !important;
   background-color: var(--background-elevated-1) !important;
   color: \${cfg.textPrimary} !important;
   border-radius: var(--lib-radius) !important;
@@ -1119,13 +1197,28 @@ main:has([class*="forum"]) aside,
   border-radius: var(--lib-radius) !important;
 }
 
+[data-lc-comment-root="1"],
+[class*="comments-section"],
+[class*="comments-wrap"] {
+  background-color: var(--background-elevated-1) !important;
+  color: var(--text-primary) !important;
+  border-radius: var(--lib-radius) !important;
+}
+
 .comment, .comment-item, [class*="comment__item"], [class*="comment-body"], [class*="comment__body"],
 [class*="comment__content"], .comment__replies, .comment-reply,
-[class*="comment-children"], [class*="comment-reply"], [class*="comments-item"] {
+[class*="comment-children"], [class*="comment-reply"], [class*="comments-item"],
+[class*="comment"] [class*="comment"],
+[class*="comments"] [class*="comment"],
+[data-lc-comment-inner="1"] {
   background: transparent !important;
   background-color: transparent !important;
-  color: \${cfg.textPrimary} !important;
-  border: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: var(--text-primary) !important;
+  border-top: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
   box-shadow: none !important;
 }
 
@@ -1133,6 +1226,62 @@ main:has([class*="forum"]) aside,
   border-left: 2px solid rgba(\${accentRgb}, 0.32) !important;
   padding-left: 14px !important;
   margin-left: 8px !important;
+}
+
+/* Bottom Footer (.x6_e4 & footer) — Unified Full-Width Theme Surface & Transparent Inner Rows */
+.x6_e4,
+[class*="x6_e4"],
+footer,
+.footer,
+[role="contentinfo"],
+[data-lc-footer="1"] {
+  background: var(--background-elevated-3) !important;
+  background-color: var(--background-elevated-3) !important;
+  color: var(--text-primary) !important;
+  \${cfg.glassmorphism ? 'backdrop-filter: blur(' + (cfg.glassBlurPx || 14) + 'px) saturate(150%) !important; -webkit-backdrop-filter: blur(' + (cfg.glassBlurPx || 14) + 'px) saturate(150%) !important;' : ''}
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+[data-lc-footer-sub="1"] {
+  border-top: none !important;
+}
+
+.x6_e4 *:not(button):not(input),
+[class*="x6_e4"] *:not(button):not(input),
+footer *:not(button):not(input),
+.footer *:not(button):not(input),
+[data-lc-footer-sub="1"] *:not(button):not(input) {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.x6_e4 a,
+[class*="x6_e4"] a,
+footer a,
+.footer a,
+[data-lc-footer="1"] a {
+  color: var(--text-primary) !important;
+  text-decoration-color: rgba(255, 255, 255, 0.3) !important;
+  transition: color 0.15s ease !important;
+}
+
+.x6_e4 a:hover,
+[class*="x6_e4"] a:hover,
+footer a:hover,
+.footer a:hover,
+[data-lc-footer="1"] a:hover {
+  color: var(--lib-accent) !important;
 }
 
 input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]),
@@ -1233,24 +1382,77 @@ iframe[src*="adriver"],
             cur.setAttribute('data-lc-header', '1');
             cur.querySelectorAll(':scope > div, :scope > nav, :scope > div > div').forEach(function (ch) { ch.setAttribute('data-lc-header-inner', '1'); });
           }
-          return;
+          break;
         }
         cur = cur.parentElement;
       }
     }
+
+    // 0. Clean up any stale attributes from parent layout containers
+    document.querySelectorAll('[data-lc-footer], [data-lc-footer-inner], [data-lc-comment-root], [data-lc-comment-inner]').forEach(function (el) {
+      if (
+        el.tagName === 'MAIN' ||
+        el.tagName === 'BODY' ||
+        el.id === 'app' ||
+        el.hasAttribute('data-home-block') ||
+        el.classList.contains('section') ||
+        el.querySelector('main, [data-home-block], .section, header')
+      ) {
+        el.removeAttribute('data-lc-footer');
+        el.removeAttribute('data-lc-footer-inner');
+        el.removeAttribute('data-lc-comment-root');
+        el.removeAttribute('data-lc-comment-inner');
+      }
+    });
+
+    // 3. Mark Bottom Footer (.x6_e4, footer, and copyright bar "ООО Мангалиб") without climbing into page layout
+    const footerEls = document.querySelectorAll('.x6_e4, [class*="x6_e4"], footer, .footer, [role="contentinfo"]');
+    footerEls.forEach(function (fEl) {
+      if (fEl.querySelector('main, [data-home-block], .section, header')) return;
+      if (!fEl.hasAttribute('data-lc-footer')) {
+        fEl.setAttribute('data-lc-footer', '1');
+      }
+      if (fEl.nextElementSibling && fEl.nextElementSibling.tagName !== 'SCRIPT') {
+        const nextEl = fEl.nextElementSibling;
+        const nextRect = nextEl.getBoundingClientRect();
+        const nextText = (nextEl.textContent || '').toLowerCase();
+        if (
+          nextRect.height <= 120 &&
+          !nextEl.querySelector('main, [data-home-block], .section') &&
+          (nextText.includes('мангалиб') || nextText.includes('mangalib') || nextText.includes('125319') || nextText.includes('ооо') || nextText.includes('все права'))
+        ) {
+          nextEl.setAttribute('data-lc-footer', '1');
+          nextEl.setAttribute('data-lc-footer-sub', '1');
+        }
+      }
+    });
   }
 
-  // Hook markTopHeader across document lifecycle
+  let lcMarkTimer = null;
+  function scheduleMarkLayout() {
+    if (lcMarkTimer) return;
+    lcMarkTimer = setTimeout(function () {
+      lcMarkTimer = null;
+      markTopHeader();
+    }, 220);
+  }
+
+  // Hook markTopHeader across document lifecycle & dynamic comment loading
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', markTopHeader);
   } else {
     markTopHeader();
   }
   window.addEventListener('load', markTopHeader);
-  window.addEventListener('scroll', markTopHeader, { passive: true });
+  window.addEventListener('scroll', scheduleMarkLayout, { passive: true });
+  window.addEventListener('click', scheduleMarkLayout, { passive: true });
   setTimeout(markTopHeader, 400);
   setTimeout(markTopHeader, 1200);
   setTimeout(markTopHeader, 2500);
+  if (typeof MutationObserver !== 'undefined') {
+    const obs = new MutationObserver(scheduleMarkLayout);
+    obs.observe(document.documentElement, { childList: true, subtree: true });
+  }
 
   function injectOrUpdateStyle(cssText) {
     let styleEl = document.getElementById(STYLE_ID);
@@ -1886,14 +2088,44 @@ ${domainMatches.map((m) => `// @match        ${m}`).join('\n')}
             cur.setAttribute('data-lc-header', '1');
             cur.querySelectorAll(':scope > div, :scope > nav, :scope > div > div').forEach(function (ch) { ch.setAttribute('data-lc-header-inner', '1'); });
           }
-          return;
+          break;
         }
         cur = cur.parentElement;
       }
     }
+
+    const footerEls = document.querySelectorAll('.x6_e4, [class*="x6_e4"], footer, .footer, [role="contentinfo"]');
+    footerEls.forEach(function (fEl) {
+      if (fEl.querySelector('main, [data-home-block], .section, header')) return;
+      if (!fEl.hasAttribute('data-lc-footer')) {
+        fEl.setAttribute('data-lc-footer', '1');
+      }
+      if (fEl.nextElementSibling && fEl.nextElementSibling.tagName !== 'SCRIPT') {
+        const nextEl = fEl.nextElementSibling;
+        const nextRect = nextEl.getBoundingClientRect();
+        const nextText = (nextEl.textContent || '').toLowerCase();
+        if (
+          nextRect.height <= 120 &&
+          !nextEl.querySelector('main, [data-home-block], .section') &&
+          (nextText.includes('мангалиб') || nextText.includes('mangalib') || nextText.includes('125319') || nextText.includes('ооо') || nextText.includes('все права'))
+        ) {
+          nextEl.setAttribute('data-lc-footer', '1');
+          nextEl.setAttribute('data-lc-footer-sub', '1');
+        }
+      }
+    });
   }
 
   injectStyles();
+
+  let lcMarkTimer = null;
+  function scheduleMarkLayout() {
+    if (lcMarkTimer) return;
+    lcMarkTimer = setTimeout(function () {
+      lcMarkTimer = null;
+      markTopHeader();
+    }, 220);
+  }
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', markTopHeader);
@@ -1901,10 +2133,15 @@ ${domainMatches.map((m) => `// @match        ${m}`).join('\n')}
     markTopHeader();
   }
   window.addEventListener('load', markTopHeader);
-  window.addEventListener('scroll', markTopHeader, { passive: true });
+  window.addEventListener('scroll', scheduleMarkLayout, { passive: true });
+  window.addEventListener('click', scheduleMarkLayout, { passive: true });
   setTimeout(markTopHeader, 400);
   setTimeout(markTopHeader, 1200);
   setTimeout(markTopHeader, 2500);
+  if (typeof MutationObserver !== 'undefined') {
+    const obs = new MutationObserver(scheduleMarkLayout);
+    obs.observe(document.documentElement, { childList: true, subtree: true });
+  }
 
   window.addEventListener('keydown', function (e) {
     if (PANIC_ENABLED && e.key === PANIC_KEY) {
@@ -1921,18 +2158,18 @@ ${domainMatches.map((m) => `// @match        ${m}`).join('\n')}
  */
 export function generateReadmeMd(): string {
   const sitesList = LIB_SITES.map((s) => `- **${s.name}**: \`${s.domains.join('`, `')}\``).join('\n');
-  return `# LibCustomizer Pro v5.8 — Настраиваемая прозрачность Форума и Прозрачные рамки
+  return `# LibCustomizer Pro v5.9 — Единый подвал (.x6_e4), Настраиваемый Форум и Адаптивная Шапка
 
 Сгенерировано в **LibCustomizer Studio**.
 
-## Что исправлено в v5.8:
-1. **Настраиваемая прозрачность подложки форума**:
-   - Добавлен отдельный параметр \`forumOpacity\` (от 0% до 100%) со слайдером в popup и веб-студии.
-   - Подложка форума использует переменную \`--forum-bg\`, позволяя пользователю настроить идеальный уровень затемнения под свои обои.
-2. **Прозрачные границы (border: 1px solid transparent)**:
-   - Как было продемонстрировано в DevTools пользователя (\`image_14c66245.png\`), граница \`border\` для блоков форума, сайдбара и карточек тем сделана прозрачной (\`border: 1px solid transparent !important\`), убирая резкие белые или серые линии.
-3. **Адаптивная шапка MangaLIB и чистые секции**:
-   - Верхняя панель сайта окрашена в цвет темы с эффектом размытия и динамическим детектором в \`markTopHeader()\`.
+## Что нового в v5.9:
+1. **Единая полноширинная подложка подвала (\`.x6_e4\` и \`footer\`)**:
+   - Нижняя часть сайта (\`.x6_e4\`) оформлена единой полосой во всю ширину в цвет темы (\`var(--background-elevated-3)\`) с размытием \`backdrop-filter\`.
+   - Убраны вложенные фоны и рамки у отдельных строк внутри подвала (\`info@mangalib.me\`, \`pr@mangalib.me\`, ссылки соглашений и строка копирайта).
+2. **Автоматический \`--text-secondary\`**:
+   - \`--text-secondary\` динамически следует за \`--text-primary\`, оставаясь на пару оттенков темнее (\`color-mix(in srgb, var(--text-primary) 72%, #000000)\`).
+3. **Настраиваемая прозрачность форума и прозрачные границы**:
+   - Отдельный ползунок \`forumOpacity\` (0–100%) и \`border: 1px solid transparent !important\`.
 
 ## Поддерживаемые сайты
 ${sitesList}
@@ -1962,7 +2199,7 @@ export async function downloadExtensionZip(config: ExtensionConfig): Promise<voi
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `lib-customizer-pro-v5.8-${config.themePreset}.zip`;
+  a.download = `lib-customizer-pro-v5.9-${config.themePreset}.zip`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
@@ -1975,7 +2212,7 @@ export function downloadUserscriptFile(config: ExtensionConfig): void {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `libcustomizer-v5.8-${config.themePreset}.user.js`;
+  a.download = `libcustomizer-v5.9-${config.themePreset}.user.js`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);

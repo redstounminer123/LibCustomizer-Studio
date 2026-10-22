@@ -197,7 +197,7 @@
   --lib-bg-elevated: rgba(${cardRgb}, ${elevatedAlpha}) !important;
   --lib-bg-nested: rgba(${cardRgb}, ${nestedItemAlpha}) !important;
   --lib-text-primary: ${cfg.textPrimary} !important;
-  --lib-text-muted: ${cfg.textMuted} !important;
+  --lib-text-muted: color-mix(in srgb, var(--text-primary) 72%, #000000) !important;
   --lib-accent: ${cfg.accentColor} !important;
   --lib-accent-rgb: ${accentRgb} !important;
   --lib-radius: ${radiusPx}px !important;
@@ -256,7 +256,8 @@
   --border-color: rgba(255, 255, 255, 0.08) !important;
   --divider-color: rgba(255, 255, 255, 0.06) !important;
   --text-primary: ${cfg.textPrimary} !important;
-  --text-secondary: ${cfg.textMuted} !important;
+  --text-secondary: color-mix(in srgb, var(--text-primary) 72%, #000000) !important;
+  --text-muted: var(--text-secondary) !important;
 }
 
 html {
@@ -333,11 +334,13 @@ header > nav,
 
 /* Main Sections & [data-home-block] Containers — Single Uniform Layer (No Double Opacity or Double Borders!) */
 .section:not([data-home-block="slider"]),
+[data-home-block]:not([data-home-block="slider"]),
 [data-home-block="popular-updates"], [data-home-block="hot-newest"], [data-home-block="latest-views"],
 [data-home-block="continue"], [data-home-block="top-views"], [data-home-block="forum"],
 [data-home-block="reviews"], [data-home-block="collections"], [data-home-block="latest-updates"],
 [data-home-block="top-users"], [data-home-block="newest"], [data-home-block="telegram"],
 [class*="faq-content"], [class*="rules-content"], [class*="comments-section"] {
+  background: var(--background-elevated-1) !important;
   background-color: var(--background-elevated-1) !important;
   color: ${cfg.textPrimary} !important;
   border-radius: var(--lib-radius) !important;
@@ -510,13 +513,28 @@ ${blockRules}
   border-radius: var(--lib-radius) !important;
 }
 
+[data-lc-comment-root="1"],
+[class*="comments-section"],
+[class*="comments-wrap"] {
+  background-color: var(--background-elevated-1) !important;
+  color: var(--text-primary) !important;
+  border-radius: var(--lib-radius) !important;
+}
+
 .comment, .comment-item, [class*="comment__item"], [class*="comment-body"], [class*="comment__body"],
 [class*="comment__content"], .comment__replies, .comment-reply,
-[class*="comment-children"], [class*="comment-reply"], [class*="comments-item"] {
+[class*="comment-children"], [class*="comment-reply"], [class*="comments-item"],
+[class*="comment"] [class*="comment"],
+[class*="comments"] [class*="comment"],
+[data-lc-comment-inner="1"] {
   background: transparent !important;
   background-color: transparent !important;
-  color: ${cfg.textPrimary} !important;
-  border: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: var(--text-primary) !important;
+  border-top: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
   box-shadow: none !important;
 }
 
@@ -524,6 +542,62 @@ ${blockRules}
   border-left: 2px solid rgba(${accentRgb}, 0.32) !important;
   padding-left: 14px !important;
   margin-left: 8px !important;
+}
+
+/* Bottom Footer (.x6_e4 & footer) — Unified Full-Width Theme Surface & Transparent Inner Rows */
+.x6_e4,
+[class*="x6_e4"],
+footer,
+.footer,
+[role="contentinfo"],
+[data-lc-footer="1"] {
+  background: var(--background-elevated-3) !important;
+  background-color: var(--background-elevated-3) !important;
+  color: var(--text-primary) !important;
+  ${cfg.glassmorphism ? 'backdrop-filter: blur(' + (cfg.glassBlurPx || 14) + 'px) saturate(150%) !important; -webkit-backdrop-filter: blur(' + (cfg.glassBlurPx || 14) + 'px) saturate(150%) !important;' : ''}
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+[data-lc-footer-sub="1"] {
+  border-top: none !important;
+}
+
+.x6_e4 *:not(button):not(input),
+[class*="x6_e4"] *:not(button):not(input),
+footer *:not(button):not(input),
+.footer *:not(button):not(input),
+[data-lc-footer-sub="1"] *:not(button):not(input) {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.x6_e4 a,
+[class*="x6_e4"] a,
+footer a,
+.footer a,
+[data-lc-footer="1"] a {
+  color: var(--text-primary) !important;
+  text-decoration-color: rgba(255, 255, 255, 0.3) !important;
+  transition: color 0.15s ease !important;
+}
+
+.x6_e4 a:hover,
+[class*="x6_e4"] a:hover,
+footer a:hover,
+.footer a:hover,
+[data-lc-footer="1"] a:hover {
+  color: var(--lib-accent) !important;
 }
 
 input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]),
@@ -624,24 +698,77 @@ ${cfg.customCss || ''}
             cur.setAttribute('data-lc-header', '1');
             cur.querySelectorAll(':scope > div, :scope > nav, :scope > div > div').forEach(function (ch) { ch.setAttribute('data-lc-header-inner', '1'); });
           }
-          return;
+          break;
         }
         cur = cur.parentElement;
       }
     }
+
+    // 0. Clean up any stale attributes from parent layout containers
+    document.querySelectorAll('[data-lc-footer], [data-lc-footer-inner], [data-lc-comment-root], [data-lc-comment-inner]').forEach(function (el) {
+      if (
+        el.tagName === 'MAIN' ||
+        el.tagName === 'BODY' ||
+        el.id === 'app' ||
+        el.hasAttribute('data-home-block') ||
+        el.classList.contains('section') ||
+        el.querySelector('main, [data-home-block], .section, header')
+      ) {
+        el.removeAttribute('data-lc-footer');
+        el.removeAttribute('data-lc-footer-inner');
+        el.removeAttribute('data-lc-comment-root');
+        el.removeAttribute('data-lc-comment-inner');
+      }
+    });
+
+    // 3. Mark Bottom Footer (.x6_e4, footer, and copyright bar "ООО Мангалиб") without climbing into page layout
+    const footerEls = document.querySelectorAll('.x6_e4, [class*="x6_e4"], footer, .footer, [role="contentinfo"]');
+    footerEls.forEach(function (fEl) {
+      if (fEl.querySelector('main, [data-home-block], .section, header')) return;
+      if (!fEl.hasAttribute('data-lc-footer')) {
+        fEl.setAttribute('data-lc-footer', '1');
+      }
+      if (fEl.nextElementSibling && fEl.nextElementSibling.tagName !== 'SCRIPT') {
+        const nextEl = fEl.nextElementSibling;
+        const nextRect = nextEl.getBoundingClientRect();
+        const nextText = (nextEl.textContent || '').toLowerCase();
+        if (
+          nextRect.height <= 120 &&
+          !nextEl.querySelector('main, [data-home-block], .section') &&
+          (nextText.includes('мангалиб') || nextText.includes('mangalib') || nextText.includes('125319') || nextText.includes('ооо') || nextText.includes('все права'))
+        ) {
+          nextEl.setAttribute('data-lc-footer', '1');
+          nextEl.setAttribute('data-lc-footer-sub', '1');
+        }
+      }
+    });
   }
 
-  // Hook markTopHeader across document lifecycle
+  let lcMarkTimer = null;
+  function scheduleMarkLayout() {
+    if (lcMarkTimer) return;
+    lcMarkTimer = setTimeout(function () {
+      lcMarkTimer = null;
+      markTopHeader();
+    }, 220);
+  }
+
+  // Hook markTopHeader across document lifecycle & dynamic comment loading
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', markTopHeader);
   } else {
     markTopHeader();
   }
   window.addEventListener('load', markTopHeader);
-  window.addEventListener('scroll', markTopHeader, { passive: true });
+  window.addEventListener('scroll', scheduleMarkLayout, { passive: true });
+  window.addEventListener('click', scheduleMarkLayout, { passive: true });
   setTimeout(markTopHeader, 400);
   setTimeout(markTopHeader, 1200);
   setTimeout(markTopHeader, 2500);
+  if (typeof MutationObserver !== 'undefined') {
+    const obs = new MutationObserver(scheduleMarkLayout);
+    obs.observe(document.documentElement, { childList: true, subtree: true });
+  }
 
   function injectOrUpdateStyle(cssText) {
     let styleEl = document.getElementById(STYLE_ID);

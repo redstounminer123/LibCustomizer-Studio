@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "LibCustomizer Pro v5.8 — Настраиваемая прозрачность форума и прозрачные рамки",
+  "name": "LibCustomizer Pro v5.9 — Полная кастомизация шапки, форума и подвала .x6_e4",
   "short_name": "LibCustomizer",
-  "version": "5.8.0",
-  "description": "Персонализация MangaLib, RanobeLib, AnimeLib: настраиваемая прозрачность подложки форума, прозрачные рамки border, адаптивная шапка, обои и AdBlock.",
+  "version": "5.9.0",
+  "description": "Персонализация MangaLib, RanobeLib, AnimeLib: единая подложка подвала (.x6_e4), настраиваемый форум, прозрачные рамки, адаптивная шапка и AdBlock.",
   "permissions": [
     "storage",
     "activeTab",
@@ -27,7 +27,7 @@
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "LibCustomizer Pro v5.8 — Настройки и Блоки главной"
+    "default_title": "LibCustomizer Pro v5.9 — Настройки и Блоки главной"
   },
   "background": {
     "service_worker": "background.js"

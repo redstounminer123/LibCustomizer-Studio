@@ -126,7 +126,7 @@ export const LibSiteSimulator: React.FC<LibSiteSimulatorProps> = ({
                   <span className="text-[11px] font-semibold mt-1.5 line-clamp-1" style={{ color: config.textPrimary }}>
                     {item.title}
                   </span>
-                  <span className="text-[10px]" style={{ color: config.textMuted }}>
+                  <span className="text-[10px]" style={{ color: 'var(--text-secondary)' }}>
                     {item.type}
                   </span>
                 </div>
@@ -199,7 +199,7 @@ export const LibSiteSimulator: React.FC<LibSiteSimulatorProps> = ({
                     <div className="text-xs font-semibold truncate" style={{ color: config.textPrimary }}>
                       {it.title}
                     </div>
-                    <div className="text-[10px]" style={{ color: config.textMuted }}>
+                    <div className="text-[10px]" style={{ color: 'var(--text-secondary)' }}>
                       {it.chapters} — {idx === 0 ? '4 из 67' : '11 из 48'}
                     </div>
                     <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden">
@@ -236,7 +236,7 @@ export const LibSiteSimulator: React.FC<LibSiteSimulatorProps> = ({
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
               {['Новинки', 'Набирающее популярность', 'Популярное'].map((colTitle, cIdx) => (
                 <div key={colTitle} className="space-y-2">
-                  <div className="text-[11px] font-medium" style={{ color: config.textMuted }}>
+                  <div className="text-[11px] font-medium" style={{ color: 'var(--text-secondary)' }}>
                     {colTitle}
                   </div>
                   {items.slice(cIdx * 2, cIdx * 2 + 2).map((it) => (
@@ -246,7 +246,7 @@ export const LibSiteSimulator: React.FC<LibSiteSimulatorProps> = ({
                         <div className="text-xs font-semibold truncate" style={{ color: config.textPrimary }}>
                           {it.title}
                         </div>
-                        <div className="text-[10px]" style={{ color: config.textMuted }}>
+                        <div className="text-[10px]" style={{ color: 'var(--text-secondary)' }}>
                           {it.type}
                         </div>
                       </div>
@@ -298,7 +298,7 @@ export const LibSiteSimulator: React.FC<LibSiteSimulatorProps> = ({
                           color: config.textPrimary,
                           borderBottom: `2px solid ${config.accentColor}`,
                         }
-                      : { color: config.textMuted }
+                      : { color: 'var(--text-secondary)' }
                   }
                 >
                   Все обновления
@@ -314,7 +314,7 @@ export const LibSiteSimulator: React.FC<LibSiteSimulatorProps> = ({
                           color: config.textPrimary,
                           borderBottom: `2px solid ${config.accentColor}`,
                         }
-                      : { color: config.textMuted }
+                      : { color: 'var(--text-secondary)' }
                   }
                 >
                   Мои обновления
@@ -336,7 +336,7 @@ export const LibSiteSimulator: React.FC<LibSiteSimulatorProps> = ({
                     <div className="text-[11px] mt-0.5" style={{ color: config.textPrimary }}>
                       Том 2 · {it.chapters}
                     </div>
-                    <div className="text-[10px] mt-0.5" style={{ color: config.textMuted }}>
+                    <div className="text-[10px] mt-0.5" style={{ color: 'var(--text-secondary)' }}>
                       {idx * 4 + 2} минут назад
                     </div>
                   </div>
@@ -361,7 +361,7 @@ export const LibSiteSimulator: React.FC<LibSiteSimulatorProps> = ({
               <div className="font-semibold" style={{ color: config.textPrimary }}>
                 Telegram-канал {siteMeta.name}
               </div>
-              <div className="text-[10px]" style={{ color: config.textMuted }}>
+              <div className="text-[10px]" style={{ color: 'var(--text-secondary)' }}>
                 data-home-block="telegram"
               </div>
             </div>
@@ -398,7 +398,7 @@ export const LibSiteSimulator: React.FC<LibSiteSimulatorProps> = ({
                   }}
                 >
                   <span className="truncate">{topic}</span>
-                  <span className="text-[10px] shrink-0 ml-2" style={{ color: config.textMuted }}>
+                  <span className="text-[10px] shrink-0 ml-2" style={{ color: 'var(--text-secondary)' }}>
                     {(i + 1) * 14} отв.
                   </span>
                 </div>
@@ -447,10 +447,10 @@ export const LibSiteSimulator: React.FC<LibSiteSimulatorProps> = ({
                     <div className="text-xs font-semibold leading-snug" style={{ color: config.textPrimary }}>
                       {idx === 0 ? 'Отличная рисовка и продуманный сюжет' : 'Крепкий середнячок на вечер'}
                     </div>
-                    <p className="text-[11px] line-clamp-2" style={{ color: config.textMuted }}>
+                    <p className="text-[11px] line-clamp-2" style={{ color: 'var(--text-secondary)' }}>
                       Текст отзыва теперь чётко виден на тёмном фоне карточки и никогда не сливается с подложкой.
                     </p>
-                    <div className="flex items-center justify-between text-[10px] pt-1" style={{ color: config.textMuted }}>
+                    <div className="flex items-center justify-between text-[10px] pt-1" style={{ color: 'var(--text-secondary)' }}>
                       <span className="flex items-center gap-1">
                         <Eye className="w-3 h-3" /> {240 + idx * 37}
                       </span>
@@ -496,7 +496,7 @@ export const LibSiteSimulator: React.FC<LibSiteSimulatorProps> = ({
                   <div className="text-xs font-semibold text-center" style={{ color: config.textPrimary }}>
                     {colName}
                   </div>
-                  <div className="flex items-center justify-center gap-2 text-[10px]" style={{ color: config.textMuted }}>
+                  <div className="flex items-center justify-center gap-2 text-[10px]" style={{ color: 'var(--text-secondary)' }}>
                     <span>👁 {2687 + idx * 1420}</span>
                     <span>·</span>
                     <span>★ {67 + idx * 49}</span>
@@ -556,7 +556,7 @@ export const LibSiteSimulator: React.FC<LibSiteSimulatorProps> = ({
                       <span className="font-semibold truncate" style={{ color: config.textPrimary }}>
                         {u.name}
                       </span>
-                      <span className="font-mono text-[10px]" style={{ color: config.textMuted }}>
+                      <span className="font-mono text-[10px]" style={{ color: 'var(--text-secondary)' }}>
                         {u.rank}
                       </span>
                     </div>
@@ -615,6 +615,8 @@ export const LibSiteSimulator: React.FC<LibSiteSimulatorProps> = ({
         {
           backgroundColor: config.bgPrimary,
           color: config.textPrimary,
+          '--text-primary': config.textPrimary,
+          '--text-secondary': `color-mix(in srgb, ${config.textPrimary} 72%, #000000)`,
           '--foreground': `rgba(${cardRgb}, ${cardAlpha})`,
           '--btn-light-bg': `rgba(${cardRgb}, ${nestedAlpha})`,
           '--lib-bg-nested': `rgba(${cardRgb}, ${nestedAlpha})`,
@@ -643,7 +645,7 @@ export const LibSiteSimulator: React.FC<LibSiteSimulatorProps> = ({
           <span className="text-slate-600">·</span>
           <span className="flex items-center gap-1 text-emerald-400 font-medium">
             <ShieldCheck className="w-3.5 h-3.5" />
-            <span>v5.8: Плотность форума ({config.forumOpacity ?? 92}%) · border: transparent · Шапка MangaLIB</span>
+            <span>v5.9: Единый подвал .x6_e4 · Плотность форума ({config.forumOpacity ?? 92}%) · border: transparent</span>
           </span>
         </div>
 
@@ -736,7 +738,7 @@ export const LibSiteSimulator: React.FC<LibSiteSimulatorProps> = ({
               <span style={{ color: config.accentColor }}>LIB</span>
             </div>
 
-            <div className="hidden sm:flex items-center gap-4 text-xs font-medium" style={{ color: config.textMuted }}>
+            <div className="hidden sm:flex items-center gap-4 text-xs font-medium" style={{ color: 'var(--text-secondary)' }}>
               <button
                 type="button"
                 onClick={() => {
@@ -756,7 +758,7 @@ export const LibSiteSimulator: React.FC<LibSiteSimulatorProps> = ({
                   setShowOverlayDemo('none');
                 }}
                 className="cursor-pointer hover:text-white transition-colors bg-transparent border-0 p-0 text-inherit"
-                style={{ color: viewMode === 'forum' ? config.accentColor : config.textMuted, fontWeight: viewMode === 'forum' ? 600 : 400 }}
+                style={{ color: viewMode === 'forum' ? config.accentColor : 'var(--text-secondary)', fontWeight: viewMode === 'forum' ? 600 : 400 }}
               >
                 Форум
               </button>
@@ -951,13 +953,13 @@ export const LibSiteSimulator: React.FC<LibSiteSimulatorProps> = ({
                               {topic.title}
                             </span>
                           </div>
-                          <div className="flex items-center gap-3 text-[11px]" style={{ color: config.textMuted }}>
+                          <div className="flex items-center gap-3 text-[11px]" style={{ color: 'var(--text-secondary)' }}>
                             <span>Автор: {topic.author}</span>
                             <span>·</span>
                             <span>{topic.time}</span>
                           </div>
                         </div>
-                        <div className="flex items-center gap-3 text-[11px] shrink-0 font-mono" style={{ color: config.textMuted }}>
+                        <div className="flex items-center gap-3 text-[11px] shrink-0 font-mono" style={{ color: 'var(--text-secondary)' }}>
                           <span className="flex items-center gap-1">
                             <MessageSquare className="w-3 h-3 text-orange-400" /> {topic.replies}
                           </span>
@@ -1049,7 +1051,7 @@ export const LibSiteSimulator: React.FC<LibSiteSimulatorProps> = ({
                               className="px-1.5 py-0.5 rounded text-[10px] font-medium"
                               style={{
                                 backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                                color: config.textMuted,
+                                color: 'var(--text-secondary)',
                               }}
                             >
                               {topic.category}
@@ -1058,13 +1060,13 @@ export const LibSiteSimulator: React.FC<LibSiteSimulatorProps> = ({
                               {topic.title}
                             </span>
                           </div>
-                          <div className="flex items-center gap-3 text-[11px]" style={{ color: config.textMuted }}>
+                          <div className="flex items-center gap-3 text-[11px]" style={{ color: 'var(--text-secondary)' }}>
                             <span>{topic.author}</span>
                             <span>·</span>
                             <span>{topic.time}</span>
                           </div>
                         </div>
-                        <div className="flex items-center gap-3 text-[11px] shrink-0 font-mono" style={{ color: config.textMuted }}>
+                        <div className="flex items-center gap-3 text-[11px] shrink-0 font-mono" style={{ color: 'var(--text-secondary)' }}>
                           <span className="flex items-center gap-1">
                             <MessageSquare className="w-3 h-3 text-orange-400" /> {topic.replies}
                           </span>
@@ -1168,6 +1170,135 @@ export const LibSiteSimulator: React.FC<LibSiteSimulatorProps> = ({
             )}
           </div>
         )}
+
+        {/* Simulated Nested Comments Block (Zero Opacity Stacking!) */}
+        {!config.hideCommentsSection && (
+          <div className="px-4 pb-5">
+            <div
+              className="mx-auto p-4 border border-white/10 space-y-3"
+              style={{
+                maxWidth: `${config.containerMaxWidth}px`,
+                backgroundColor: 'var(--background-elevated-1)',
+                borderRadius: `${radiusPx}px`,
+                backdropFilter: config.glassmorphism ? `blur(${config.glassBlurPx}px)` : 'none',
+              }}
+            >
+              <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                <span className="text-xs font-bold" style={{ color: config.textPrimary }}>
+                  Комментарии (вложенные ветки без наслаивания прозрачности)
+                </span>
+                <span className="text-[10px] font-mono text-emerald-400">background: transparent !important</span>
+              </div>
+
+              {/* Root Comment */}
+              <div className="space-y-2 text-xs" style={{ backgroundColor: 'transparent' }}>
+                <div className="flex items-center gap-2">
+                  <span className="w-5 h-5 rounded bg-slate-700/80 inline-flex items-center justify-center text-[10px] font-bold">S</span>
+                  <span className="font-bold" style={{ color: config.textPrimary }}>SimbiAnT29</span>
+                  <span className="text-[11px]" style={{ color: 'var(--text-secondary)' }}>2 дня назад</span>
+                </div>
+                <p style={{ color: config.textPrimary }}>
+                  А куда вы нажали, что оно наслоилось друг на друга.
+                </p>
+                <div className="flex items-center gap-3 text-[11px]" style={{ color: config.accentColor }}>
+                  <span className="cursor-pointer">ответить</span>
+                  <span className="cursor-pointer">жалоба</span>
+                </div>
+
+                {/* Reply Level 1 */}
+                <div
+                  className="pl-3.5 ml-2 space-y-2"
+                  style={{
+                    backgroundColor: 'transparent',
+                    borderLeft: `2px solid rgba(${accentRgb}, 0.32)`,
+                  }}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="w-5 h-5 rounded bg-rose-900/60 inline-flex items-center justify-center text-[10px] font-bold">127</span>
+                    <span className="font-bold" style={{ color: config.textPrimary }}>Читатель #127</span>
+                    <span className="text-[11px]" style={{ color: 'var(--text-secondary)' }}>2 дня назад</span>
+                  </div>
+                  <p style={{ color: config.textPrimary }}>
+                    Просто на тайтл перешёл, теперь вложенные ответы полностью прозрачны и не затемняют друг друга.
+                  </p>
+                  <div className="flex items-center gap-3 text-[11px]" style={{ color: config.accentColor }}>
+                    <span className="cursor-pointer">ответить</span>
+                    <span className="cursor-pointer">жалоба</span>
+                  </div>
+
+                  {/* Reply Level 2 */}
+                  <div
+                    className="pl-3.5 ml-2 space-y-1.5"
+                    style={{
+                      backgroundColor: 'transparent',
+                      borderLeft: `2px solid rgba(${accentRgb}, 0.32)`,
+                    }}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="w-5 h-5 rounded bg-slate-700/80 inline-flex items-center justify-center text-[10px] font-bold">S</span>
+                      <span className="font-bold" style={{ color: config.textPrimary }}>SimbiAnT29</span>
+                      <span className="text-[11px]" style={{ color: 'var(--text-secondary)' }}>2 дня назад</span>
+                    </div>
+                    <p style={{ color: config.textPrimary }}>
+                      Отлично, у всех уровней вложенности единая прозрачность родительского блока!
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Simulated Bottom Footer (.x6_e4) — Unified Full-Width Theme Bar Without Inner Borders */}
+        <footer
+          className="x6_e4 px-4 py-4 border-t border-white/10 text-xs transition-colors"
+          style={{
+            backgroundColor: 'var(--background-elevated-3)',
+            backdropFilter: config.glassmorphism ? `blur(${config.glassBlurPx}px) saturate(150%)` : 'none',
+            color: config.textPrimary,
+          }}
+        >
+          <div className="mx-auto flex flex-col gap-2" style={{ maxWidth: `${config.containerMaxWidth}px` }}>
+            <div className="flex items-start justify-between gap-4">
+              <div className="space-y-1.5 text-[11px]">
+                <div>
+                  В случаях нарушения авторских прав - обращайтесь на почту{' '}
+                  <span className="underline cursor-pointer">info@{siteMeta.domains[0]}</span>
+                </div>
+                <div>
+                  По вопросам сотрудничества и PR -{' '}
+                  <span className="underline cursor-pointer">pr@{siteMeta.domains[0]}</span>
+                </div>
+                <div className="flex flex-wrap gap-x-3 gap-y-1 pt-0.5 underline">
+                  <span>Обратная связь</span>
+                  <span>Пользовательское соглашение</span>
+                  <span>Политика конфиденциальности</span>
+                  <span>Лицензионная оферта</span>
+                  <span>Для правообладателей (DMCA)</span>
+                  <span>ИТ-деятельность</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <span className="text-[10px] font-mono" style={{ color: 'var(--text-secondary)' }}>
+                  .x6_e4
+                </span>
+                <div
+                  className="w-7 h-7 flex items-center justify-center font-display font-bold text-sm"
+                  style={{
+                    color: config.textPrimary,
+                    borderTop: `2px solid ${config.accentColor}`,
+                    borderBottom: `2px solid ${config.accentColor}`,
+                  }}
+                >
+                  M
+                </div>
+              </div>
+            </div>
+            <div className="pt-1 text-[10px]" style={{ color: 'var(--text-secondary)' }}>
+              ООО “Мангалиб”, 125319, г. Москва, ул. Академика Ильюшина, д.12, помещ. 2/1
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
   );

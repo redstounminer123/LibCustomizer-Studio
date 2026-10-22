@@ -231,7 +231,7 @@ export default function App() {
                 : ''
             }`}
           >
-            Исходный код v5.8
+            Исходный код v5.9
           </button>
           <button
             type="button"
@@ -252,7 +252,7 @@ export default function App() {
             className="px-4 py-2 text-xs font-semibold text-white bg-orange-600 hover:bg-orange-500 rounded-lg transition-colors flex items-center gap-2 whitespace-nowrap shrink-0 cursor-pointer shadow-sm"
           >
             <Download className="w-3.5 h-3.5" />
-            <span>{isExportingZip ? 'Сборка архива...' : 'Скачать расширение v5.8 (.ZIP)'}</span>
+            <span>{isExportingZip ? 'Сборка архива...' : 'Скачать расширение v5.9 (.ZIP)'}</span>
           </button>
         </div>
       </header>
@@ -261,7 +261,7 @@ export default function App() {
       <div className="border-b border-slate-800/60 bg-[#0F1522] px-6 py-2.5 flex flex-wrap items-center justify-between gap-4 text-xs">
         <div className="flex flex-wrap items-center gap-2 text-slate-400">
           <span className="font-medium text-emerald-400">
-            Обновление v5.8 (Настраиваемая прозрачность Форума 0–100%, border: transparent, адаптивная шапка):
+            Обновление v5.9 (Единый подвал .x6_e4 без внутренних рамок, авто --text-secondary, форум 0–100%):
           </span>
           <span>mangalib.me/.org</span>
           <span aria-hidden="true">·</span>
@@ -281,7 +281,7 @@ export default function App() {
             className="px-3 py-1.5 rounded-md bg-slate-800/90 hover:bg-slate-700 text-slate-200 font-medium transition-colors flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer border border-slate-700/70"
           >
             <FileCode className="w-3.5 h-3.5 text-orange-400" />
-            <span>Скачать .user.js (v5.8)</span>
+            <span>Скачать .user.js (v5.9)</span>
           </button>
           <button
             type="button"
@@ -675,16 +675,34 @@ export default function App() {
                       />
                     </label>
                     <label className="flex items-center justify-between p-2 rounded-lg bg-slate-900/70 border border-slate-800 text-xs">
-                      <span className="text-slate-300">Основной текст</span>
-                      <input
-                        type="color"
-                        value={config.textPrimary}
-                        onChange={(e) => {
-                          updateConfig('themePreset', 'custom');
-                          updateConfig('textPrimary', e.target.value);
-                        }}
-                        className="w-6 h-6 rounded cursor-pointer bg-transparent border-0"
-                      />
+                      <div>
+                        <span className="text-slate-300 block">Основной текст</span>
+                        <span className="text-[10px] text-slate-500 font-mono">--text-secondary авто (-28%)</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <span
+                          title="--text-secondary (на пару оттенков темнее --text-primary)"
+                          className="w-4 h-4 rounded border border-white/15 shrink-0"
+                          style={{ backgroundColor: `color-mix(in srgb, ${config.textPrimary} 72%, #000000)` }}
+                        />
+                        <input
+                          type="color"
+                          value={config.textPrimary}
+                          onChange={(e) => {
+                            const hex = e.target.value;
+                            const clean = hex.replace('#', '');
+                            const num = parseInt(clean, 16) || 0;
+                            const r = Math.max(0, Math.min(255, Math.round(((num >> 16) & 255) * 0.72)));
+                            const g = Math.max(0, Math.min(255, Math.round(((num >> 8) & 255) * 0.72)));
+                            const b = Math.max(0, Math.min(255, Math.round((num & 255) * 0.72)));
+                            const darkerHex = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+                            updateConfig('themePreset', 'custom');
+                            updateConfig('textPrimary', hex);
+                            updateConfig('textMuted', darkerHex);
+                          }}
+                          className="w-6 h-6 rounded cursor-pointer bg-transparent border-0"
+                        />
+                      </div>
                     </label>
                   </div>
                 </div>
