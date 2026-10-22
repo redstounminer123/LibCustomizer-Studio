@@ -1,9 +1,9 @@
-![LibCustomizer](https://i.slow.pics/Uz6ZgDJg.webp)
+![LibCustomizer](docs/1.png)
 # LibCustomizer studio
 **Позволяет редактировать внешний вид сайтов Lib через удобный интерфейс.**
-![Пример 2](https://i.slow.pics/sDKPSipR.webp)
+![Пример 2](docs/3.png)
 ### Результат
-![Пример](https://i.slow.pics/0MnTbQEJ.webp)
+![Пример](docs/2.png)
 *<u>Всё написано ии.</u>*
 ## Поддерживаемые сайты
 - **MangaLib**: `mangalib.me`, `mangalib.org`
